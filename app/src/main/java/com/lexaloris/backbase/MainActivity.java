@@ -11,8 +11,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-
-import java.util.ArrayList;
+import com.lexaloris.backbase.model.Cities;
 
 public class MainActivity extends AppCompatActivity implements MainView {
 
@@ -60,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
     }
 
     @Override
-    public void populate(ArrayList<String> model) {
+    public void populate(Cities model) {
         mAdapter.update(model);
         mAdapter.notifyDataSetChanged();
     }

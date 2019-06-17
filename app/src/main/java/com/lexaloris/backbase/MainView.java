@@ -1,10 +1,9 @@
 package com.lexaloris.backbase;
 
 import com.google.android.gms.maps.OnMapReadyCallback;
-
-import java.util.ArrayList;
+import com.lexaloris.backbase.model.Cities;
 
 interface MainView extends OnMapReadyCallback {
 
-    void populate(ArrayList<String> model);
+    void populate(Cities model);
 }

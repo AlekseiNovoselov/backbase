@@ -7,10 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import com.lexaloris.backbase.model.Cities;
 
 public class CitiesListAdapter extends RecyclerView.Adapter<CitiesListAdapter.MyViewHolder> {
-    private ArrayList<String> data = new ArrayList<>();
+    private Cities data = new Cities();
 
     @NonNull
     @Override
@@ -21,11 +21,11 @@ public class CitiesListAdapter extends RecyclerView.Adapter<CitiesListAdapter.My
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        String model = data.get(position);
-        holder.textView.setText(model);
+        String cityName = data.get(position).getName();
+        holder.cityNameView.setText(cityName);
     }
 
-    public void update(ArrayList<String> data) {
+    public void update(Cities data) {
         this.data = data;
     }
 
@@ -35,11 +35,11 @@ public class CitiesListAdapter extends RecyclerView.Adapter<CitiesListAdapter.My
     }
 
     static class MyViewHolder extends RecyclerView.ViewHolder {
-        private TextView textView;
+        private TextView cityNameView;
 
         MyViewHolder(View view) {
             super(view);
-            textView = view.findViewById(R.id.cityNameView);
+            cityNameView = view.findViewById(R.id.cityNameView);
         }
     }
 }
