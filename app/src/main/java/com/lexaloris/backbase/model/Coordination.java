@@ -1,5 +1,7 @@
 package com.lexaloris.backbase.model;
 
+import android.support.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Objects;
@@ -37,6 +39,7 @@ public class Coordination {
         return Objects.hash(lon, lat);
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "Coordination{" +

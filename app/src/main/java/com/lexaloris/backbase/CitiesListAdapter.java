@@ -50,7 +50,7 @@ public class CitiesListAdapter extends RecyclerView.Adapter<CitiesListAdapter.Ci
             subtitleView = view.findViewById(R.id.city_cell_subtitle);
         }
 
-        void bind(final City city, final OnItemClickListener listener) {
+        private void bind(final City city, final OnItemClickListener listener) {
             Coordination coordination = city.getCoordination();
             String title = city.getName() + " " + city.getCountryName();
             String subtitle = coordination.getLon() + " " + coordination.getLat();

@@ -9,7 +9,7 @@ import android.view.ViewStub;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.lexaloris.backbase.model.Cities;
@@ -20,7 +20,6 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
     private CitiesListAdapter mAdapter;
 
-    private MapView mapView;
     private GoogleMap map;
     private Presenter presenter;
 
@@ -32,9 +31,8 @@ public class MainActivity extends AppCompatActivity implements MainView {
         if (getResources().getBoolean(R.bool.twoPaneMode)) {
             ViewStub viewStub = findViewById(R.id.viewStub);
             viewStub.inflate();
-            mapView = findViewById(R.id.mapview);
-            mapView.onCreate(savedInstanceState);
-            mapView.getMapAsync(this);
+            SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map_fragment);
+            mapFragment.getMapAsync(this);
         }
 
         RecyclerView recyclerView = findViewById(R.id.my_recycler_view);
@@ -101,39 +99,9 @@ public class MainActivity extends AppCompatActivity implements MainView {
     }
 
     @Override
-    public void onResume() {
-        if (mapView != null) {
-            mapView.onResume();
-        }
-        super.onResume();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        if (mapView != null) {
-            mapView.onPause();
-        }
-    }
-
-    @Override
     public void onStop() {
         super.onStop();
         presenter.onStop();
-    }
-
-    @Override
-    protected void onDestroy() {
-        if (mapView != null) {
-            mapView.onDestroy();
-        }
-        super.onDestroy();
-    }
-
-    @Override
-    public void onLowMemory() {
-        super.onLowMemory();
-        mapView.onLowMemory();
     }
 
     @Override

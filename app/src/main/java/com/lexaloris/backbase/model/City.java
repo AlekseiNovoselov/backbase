@@ -1,5 +1,7 @@
 package com.lexaloris.backbase.model;
 
+import android.support.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Objects;
@@ -53,6 +55,7 @@ public class City {
         return Objects.hash(name, countryName, id, coordination);
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "City{" +
