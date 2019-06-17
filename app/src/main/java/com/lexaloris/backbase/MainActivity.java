@@ -1,5 +1,6 @@
 package com.lexaloris.backbase;
 
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
@@ -30,9 +31,10 @@ public class MainActivity extends AppCompatActivity implements MainView {
         setContentView(R.layout.activity_main);
         attachPresenter();
         if (getResources().getBoolean(R.bool.twoPaneMode)) {
-            ViewStub viewStub = findViewById(R.id.viewStub);
+            ViewStub viewStub = findViewById(R.id.view_stub);
             viewStub.inflate();
-            SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map_fragment);
+            Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.map_fragment);
+            SupportMapFragment mapFragment = (SupportMapFragment) fragment;
             mapFragment.getMapAsync(this);
         }
 

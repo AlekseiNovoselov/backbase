@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -51,7 +52,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     private void setToolbarClickListener() {
-        findViewById(R.id.toolbar).setOnClickListener(new View.OnClickListener() {
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle(cityName);
+        toolbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();

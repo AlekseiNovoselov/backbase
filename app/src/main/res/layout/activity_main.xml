@@ -6,11 +6,19 @@
     android:layout_width="fill_parent"
     android:orientation="horizontal">
 
-    <FrameLayout
-        android:id="@+id/listFragment"
+    <LinearLayout
+        android:id="@+id/list_fragment"
         android:layout_height="match_parent"
         android:layout_weight="1"
+        android:orientation="vertical"
         android:layout_width="0dp">
+
+        <SearchView
+            android:id="@+id/search_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+        </SearchView>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/my_recycler_view"
@@ -18,12 +26,12 @@
             android:layout_width="match_parent"
             android:scrollbars="vertical" />
 
-    </FrameLayout>
+    </LinearLayout>
 
     <ViewStub
-        android:id="@+id/viewStub"
+        android:id="@+id/view_stub"
         android:inflatedId="@+id/inflate"
-        android:layout="@layout/mapview_stub_layout"
+        android:layout="@layout/map_view_stub"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:layout_width="0dp" />
