@@ -12,6 +12,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.lexaloris.backbase.map.MapActivity;
 import com.lexaloris.backbase.model.Cities;
 import com.lexaloris.backbase.model.City;
 import com.lexaloris.backbase.model.Coordination;
@@ -84,10 +85,18 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
     @Override
     public void showCityOnMap(City selectedCity) {
+        if (selectedCity == null) {
+            return;
+        }
         boolean isLandscapeMode = getResources().getBoolean(R.bool.twoPaneMode);
-        if (isLandscapeMode && selectedCity != null) {
-            Coordination coordination = selectedCity.getCoordination();
-            selectCityOnMap(coordination.getLat(), coordination.getLon(), selectedCity.getName());
+        Coordination coordination = selectedCity.getCoordination();
+        double lat = coordination.getLat();
+        double lon = coordination.getLon();
+        String cityName = selectedCity.getName();
+        if (isLandscapeMode) {
+            selectCityOnMap(lat, lon, cityName);
+        } else {
+            MapActivity.show(this, lat, lon, cityName);
         }
     }
 
