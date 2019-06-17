@@ -2,9 +2,9 @@ package com.lexaloris.backbase;
 
 interface Presenter {
 
-    void attachView(MainActivity mainActivity);
-
-    void detachView();
+    void attachView(MainView mainActivity);
 
     void onStart();
+
+    void onStop();
 }

@@ -2,19 +2,24 @@ package com.lexaloris.backbase;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.ViewStub;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
-import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
+import java.util.ArrayList;
 
-    MapView mapView;
-    GoogleMap map;
+public class MainActivity extends AppCompatActivity implements MainView {
+
+    private CitiesListAdapter mAdapter;
+
+    private MapView mapView;
+    private GoogleMap map;
     private Presenter presenter;
 
     @Override
@@ -29,12 +34,21 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             mapView.onCreate(savedInstanceState);
             mapView.getMapAsync(this);
         }
+
+        RecyclerView recyclerView = findViewById(R.id.my_recycler_view);
+        recyclerView.setHasFixedSize(true);
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+
+        mAdapter = new CitiesListAdapter();
+        recyclerView.setAdapter(mAdapter);
     }
 
     private void attachPresenter() {
         presenter = (Presenter) getLastCustomNonConfigurationInstance();
         if (presenter == null) {
-            presenter = new PresenterImpl();
+            presenter = new PresenterImpl(getApplicationContext());
         }
         presenter.attachView(this);
     }
@@ -43,6 +57,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     protected void onStart() {
         super.onStart();
         presenter.onStart();
+    }
+
+    @Override
+    public void populate(ArrayList<String> model) {
+        mAdapter.update(model);
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -61,7 +81,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         super.onResume();
     }
 
-
     @Override
     public void onPause() {
         super.onPause();
@@ -71,8 +90,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     @Override
+    public void onStop() {
+        super.onStop();
+        presenter.onStop();
+    }
+
+    @Override
     protected void onDestroy() {
-        presenter.detachView();
         if (mapView != null) {
             mapView.onDestroy();
         }
