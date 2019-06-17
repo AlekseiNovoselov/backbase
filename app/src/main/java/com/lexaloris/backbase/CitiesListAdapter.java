@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.lexaloris.backbase.model.Cities;
+import com.lexaloris.backbase.model.City;
+import com.lexaloris.backbase.model.Coordination;
 
 public class CitiesListAdapter extends RecyclerView.Adapter<CitiesListAdapter.MyViewHolder> {
     private Cities data = new Cities();
@@ -21,8 +23,13 @@ public class CitiesListAdapter extends RecyclerView.Adapter<CitiesListAdapter.My
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        String cityName = data.get(position).getName();
-        holder.cityNameView.setText(cityName);
+        City city = data.get(position);
+        Coordination coordination = city.getCoordination();
+
+        String title = city.getName() + " " + city.getCountryName();
+        String subtitle = coordination.getLon() + " " + coordination.getLat();
+        holder.titleView.setText(title);
+        holder.subtitleView.setText(subtitle);
     }
 
     public void update(Cities data) {
@@ -35,11 +42,13 @@ public class CitiesListAdapter extends RecyclerView.Adapter<CitiesListAdapter.My
     }
 
     static class MyViewHolder extends RecyclerView.ViewHolder {
-        private TextView cityNameView;
+        private TextView titleView;
+        private TextView subtitleView;
 
         MyViewHolder(View view) {
             super(view);
-            cityNameView = view.findViewById(R.id.cityNameView);
+            titleView = view.findViewById(R.id.city_cell_title);
+            subtitleView = view.findViewById(R.id.city_cell_subtitle);
         }
     }
 }
