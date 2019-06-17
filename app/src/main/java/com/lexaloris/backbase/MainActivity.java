@@ -13,6 +13,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.lexaloris.backbase.about.AboutActivity;
 import com.lexaloris.backbase.map.MapActivity;
 import com.lexaloris.backbase.model.Cities;
 import com.lexaloris.backbase.model.City;
@@ -54,6 +55,11 @@ public class MainActivity extends AppCompatActivity implements MainView {
             public void onItemClick(City city) {
                 presenter.onItemClick(city);
             }
+
+            @Override
+            public void onButtonClick() {
+                startAboutActivity();
+            }
         };
         mAdapter = new CitiesListAdapter(listener);
         recyclerView.setAdapter(mAdapter);
@@ -65,6 +71,10 @@ public class MainActivity extends AppCompatActivity implements MainView {
             presenter = new PresenterImpl(getApplicationContext());
         }
         presenter.attachView(this);
+    }
+
+    private void startAboutActivity() {
+        AboutActivity.show(this);
     }
 
     @Override

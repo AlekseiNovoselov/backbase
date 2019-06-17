@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.lexaloris.backbase.model.Cities;
@@ -43,11 +44,13 @@ public class CitiesListAdapter extends RecyclerView.Adapter<CitiesListAdapter.Ci
     static class CityCellViewHolder extends RecyclerView.ViewHolder {
         private TextView titleView;
         private TextView subtitleView;
+        private Button aboutButton;
 
         CityCellViewHolder(View view) {
             super(view);
             titleView = view.findViewById(R.id.city_cell_title);
             subtitleView = view.findViewById(R.id.city_cell_subtitle);
+            aboutButton = view.findViewById(R.id.city_cell_button_about);
         }
 
         private void bind(final City city, final OnItemClickListener listener) {
@@ -61,6 +64,12 @@ public class CitiesListAdapter extends RecyclerView.Adapter<CitiesListAdapter.Ci
                 @Override
                 public void onClick(View v) {
                     listener.onItemClick(city);
+                }
+            });
+            aboutButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onButtonClick();
                 }
             });
         }

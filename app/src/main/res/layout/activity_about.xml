@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    tools:context=".about.AboutActivity">
+
+    <LinearLayout
+        android:id="@+id/infoContainer"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="@string/company_name" />
+
+            <TextView
+                android:id="@+id/companyName"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                tools:text="Backbase" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="@string/company_address" />
+
+            <TextView
+                android:id="@+id/companyAdress"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                tools:text="Backbase" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="@string/company_city" />
+
+            <TextView
+                android:id="@+id/companyCity"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                tools:text="Backbase" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="@string/company_postal" />
+
+            <TextView
+                android:id="@+id/companypostal"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                tools:text="Backbase" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="@string/company_about" />
+
+            <TextView
+                android:id="@+id/aboutInfo"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                tools:text="Backbase" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_centerInParent="true"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:visibility="gone" />
+
+    <TextView
+        style="@style/TextAppearance.AppCompat.Medium"
+        android:id="@+id/errorView"
+        android:layout_centerInParent="true"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="@string/loading_failed"
+        android:visibility="gone" />
+
+</RelativeLayout>

@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Backbase</string>
+    <string name="about">about</string>
+    <string name="loading_failed">Loading Failed</string>
+
+    <!-- about -->
+    <string name="company_name">Company name: </string>
+    <string name="company_address">Company address: </string>
+    <string name="company_city">"Company city: "</string>
+    <string name="company_postal">Company postal: </string>
+    <string name="company_about">"About: </string>
 </resources>
