@@ -1,27 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:baselineAligned="false"
-    android:orientation="horizontal" >
+    android:layout_height="fill_parent"
+    android:layout_width="fill_parent"
+    android:orientation="horizontal">
 
-    <fragment
+    <FrameLayout
         android:id="@+id/listFragment"
-        android:layout_width="0dp"
-        android:layout_weight="1"
         android:layout_height="match_parent"
-        class="com.lexaloris.backbase.ListFragment"
-        tools:layout="@layout/fragment_list">
-    </fragment>
+        android:layout_weight="1"
+        android:layout_width="0dp">
 
-    <fragment
-        android:id="@+id/detailFragment"
-        android:layout_width="0dp"
-        android:layout_weight="1"
+        <Button
+            android:id="@+id/updateButton"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Press to update" />
+
+    </FrameLayout>
+
+    <ViewStub
+        android:id="@+id/viewStub"
+        android:inflatedId="@+id/inflate"
+        android:layout="@layout/mapview_stub_layout"
         android:layout_height="match_parent"
-        class="com.lexaloris.backbase.DetailFragment"
-        tools:layout="@layout/fragment_detail">
-    </fragment>
+        android:layout_weight="1"
+        android:layout_width="0dp" />
 
 </LinearLayout>
