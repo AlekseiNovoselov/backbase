@@ -8,6 +8,7 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.lexaloris.backbase.model.Cities;
+import com.lexaloris.backbase.model.City;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,6 +20,7 @@ public class PresenterImpl implements Presenter {
     private static final String FILE_NAME = "cities.json";
 
     private Cities cities = null;
+    private City selectedCity = null;
     private WeakReference<MainView> mainView;
     private Context context;
 
@@ -39,7 +41,6 @@ public class PresenterImpl implements Presenter {
             String result = loadCities();
             cities = parse(result);
         }
-
         MainView view = mainView.get();
         if (view != null) {
             view.populate(cities);
@@ -67,6 +68,24 @@ public class PresenterImpl implements Presenter {
             Log.e(TAG, ex.getLocalizedMessage(), ex);
         }
         return null;
+    }
+
+    @Override
+    public void onItemClick(City city) {
+        selectedCity = city;
+        showSelectedCity();
+    }
+
+    private void showSelectedCity() {
+        MainView view = mainView.get();
+        if (view != null) {
+            view.showCityOnMap(selectedCity);
+        }
+    }
+
+    @Override
+    public void onMapReady() {
+        showSelectedCity();
     }
 
     @Override

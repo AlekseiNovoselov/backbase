@@ -1,5 +1,7 @@
 package com.lexaloris.backbase;
 
+import com.lexaloris.backbase.model.City;
+
 interface Presenter {
 
     void attachView(MainView mainActivity);
@@ -7,4 +9,8 @@ interface Presenter {
     void onStart();
 
     void onStop();
+
+    void onItemClick(City city);
+
+    void onMapReady();
 }

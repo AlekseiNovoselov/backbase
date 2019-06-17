@@ -11,25 +11,24 @@ import com.lexaloris.backbase.model.Cities;
 import com.lexaloris.backbase.model.City;
 import com.lexaloris.backbase.model.Coordination;
 
-public class CitiesListAdapter extends RecyclerView.Adapter<CitiesListAdapter.MyViewHolder> {
+public class CitiesListAdapter extends RecyclerView.Adapter<CitiesListAdapter.CityCellViewHolder> {
+    private final OnItemClickListener listener;
     private Cities data = new Cities();
+
+    public CitiesListAdapter(OnItemClickListener listener) {
+        this.listener = listener;
+    }
 
     @NonNull
     @Override
-    public CitiesListAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CityCellViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.city_item_view, parent, false);
-        return new MyViewHolder(view);
+        return new CityCellViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        City city = data.get(position);
-        Coordination coordination = city.getCoordination();
-
-        String title = city.getName() + " " + city.getCountryName();
-        String subtitle = coordination.getLon() + " " + coordination.getLat();
-        holder.titleView.setText(title);
-        holder.subtitleView.setText(subtitle);
+    public void onBindViewHolder(@NonNull CityCellViewHolder holder, int position) {
+        holder.bind(data.get(position), listener);
     }
 
     public void update(Cities data) {
@@ -41,14 +40,29 @@ public class CitiesListAdapter extends RecyclerView.Adapter<CitiesListAdapter.My
         return data.size();
     }
 
-    static class MyViewHolder extends RecyclerView.ViewHolder {
+    static class CityCellViewHolder extends RecyclerView.ViewHolder {
         private TextView titleView;
         private TextView subtitleView;
 
-        MyViewHolder(View view) {
+        CityCellViewHolder(View view) {
             super(view);
             titleView = view.findViewById(R.id.city_cell_title);
             subtitleView = view.findViewById(R.id.city_cell_subtitle);
+        }
+
+        void bind(final City city, final OnItemClickListener listener) {
+            Coordination coordination = city.getCoordination();
+            String title = city.getName() + " " + city.getCountryName();
+            String subtitle = coordination.getLon() + " " + coordination.getLat();
+            titleView.setText(title);
+            subtitleView.setText(subtitle);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onItemClick(city);
+                }
+            });
         }
     }
 }

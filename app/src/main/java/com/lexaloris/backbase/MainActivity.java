@@ -13,6 +13,8 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.lexaloris.backbase.model.Cities;
+import com.lexaloris.backbase.model.City;
+import com.lexaloris.backbase.model.Coordination;
 
 public class MainActivity extends AppCompatActivity implements MainView {
 
@@ -46,8 +48,13 @@ public class MainActivity extends AppCompatActivity implements MainView {
                 layoutManager.getOrientation()
         );
         recyclerView.addItemDecoration(dividerItemDecoration);
-
-        mAdapter = new CitiesListAdapter();
+        OnItemClickListener listener = new OnItemClickListener() {
+            @Override
+            public void onItemClick(City city) {
+                presenter.onItemClick(city);
+            }
+        };
+        mAdapter = new CitiesListAdapter(listener);
         recyclerView.setAdapter(mAdapter);
     }
 
@@ -74,9 +81,23 @@ public class MainActivity extends AppCompatActivity implements MainView {
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
-        LatLng sydney = new LatLng(-34, 151);
-        map.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        map.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        presenter.onMapReady();
+    }
+
+    @Override
+    public void showCityOnMap(City selectedCity) {
+        boolean isLandscapeMode = getResources().getBoolean(R.bool.twoPaneMode);
+        if (isLandscapeMode && selectedCity != null) {
+            Coordination coordination = selectedCity.getCoordination();
+            selectCityOnMap(coordination.getLat(), coordination.getLon(), selectedCity.getName());
+        }
+    }
+
+    private void selectCityOnMap(double lat, double lan, String cityName) {
+        LatLng position = new LatLng(lat, lan);
+        map.clear();
+        map.addMarker(new MarkerOptions().position(position).title(cityName));
+        map.moveCamera(CameraUpdateFactory.newLatLng(position));
     }
 
     @Override
