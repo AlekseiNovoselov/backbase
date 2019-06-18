@@ -11,15 +11,16 @@ public class SearchUtils {
 
     public Cities startWithPrefix(CitiesData citiesData, String prefixName) {
         Cities cities = citiesData.getCities();
+        String lowerCasePrefixName =  prefixName.toLowerCase();
         ArrayList<String> citiesNames = citiesData.getCitiesNames();
         int size = cities.size();
-        int left = binarySearchLeftMore.findIndex(citiesNames, 0, size - 1, prefixName);
-        int right = binarySearchRightMore.findIndex(citiesNames, 0, size - 1, prefixName, size);
+        int left = binarySearchLeftMore.findIndex(citiesNames, 0, size - 1, lowerCasePrefixName);
+        int right = binarySearchRightMore.findIndex(citiesNames, 0, size - 1, lowerCasePrefixName, size);
         if (left == -1 && right == -1) {
             return new Cities();
         }
         Cities filteredCities = new Cities();
-        filteredCities.addAll(cities.subList(left, right));
+        filteredCities.addAll(cities.subList(left, right + 1));
         return filteredCities;
     }
 }

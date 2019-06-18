@@ -69,7 +69,7 @@ public class MainPresenterImpl implements MainPresenter {
     @Override
     public void onTextChanges(String inputtedText) {
         if (!searchText.equals(inputtedText)) {
-            searchText = inputtedText.toLowerCase();
+            searchText = inputtedText;
             populateCities();
         }
     }
