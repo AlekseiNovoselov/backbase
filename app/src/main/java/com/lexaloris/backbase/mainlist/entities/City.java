@@ -31,10 +31,6 @@ public class City {
         return countryName;
     }
 
-    public long getId() {
-        return id;
-    }
-
     public Coordination getCoordination() {
         return coordination;
     }

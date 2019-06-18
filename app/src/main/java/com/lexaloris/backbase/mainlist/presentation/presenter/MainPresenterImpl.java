@@ -9,6 +9,7 @@ import com.lexaloris.backbase.mainlist.utils.SearchUtils;
 import com.lexaloris.backbase.mainlist.entities.Cities;
 import com.lexaloris.backbase.mainlist.entities.CitiesData;
 import com.lexaloris.backbase.mainlist.entities.City;
+
 import java.lang.ref.WeakReference;
 
 public class MainPresenterImpl implements MainPresenter {
@@ -18,6 +19,7 @@ public class MainPresenterImpl implements MainPresenter {
     private CitiesData citiesData = null;
     private City selectedCity = null;
     private String searchText = "";
+    private LoadCitiesAsyncTask loadCitiesAsyncTask;
 
     public MainPresenterImpl(@NonNull Context context) {
         repository = new CitiesRepository(context);
@@ -31,12 +33,14 @@ public class MainPresenterImpl implements MainPresenter {
     @Override
     public void onStart() {
         if (citiesData == null) {
-            citiesData = repository.loadCities();
+            loadCitiesAsyncTask = new LoadCitiesAsyncTask(this, repository);
+            loadCitiesAsyncTask.execute();
+        } else {
+            populateCities();
         }
-        populateCities();
     }
 
-    private void populateCities() {
+    void populateCities() {
         MainView view = mainView.get();
         if (view != null) {
             Cities filteredCities = searchUtils.startWithPrefix(citiesData, searchText);
@@ -64,12 +68,34 @@ public class MainPresenterImpl implements MainPresenter {
 
     @Override
     public void onTextChanges(String inputtedText) {
-        searchText = inputtedText;
-        populateCities();
+        if (!searchText.equals(inputtedText)) {
+            searchText = inputtedText.toLowerCase();
+            populateCities();
+        }
     }
 
     @Override
     public void onStop() {
+        if (loadCitiesAsyncTask != null) {
+            loadCitiesAsyncTask.cancel(true);
+        }
+    }
 
+    void showProgress() {
+        MainView view = mainView.get();
+        if (view != null) {
+            view.showProgress();
+        }
+    }
+
+    void setCitiesData(CitiesData citiesData) {
+        this.citiesData = citiesData;
+    }
+
+    void hideProgress() {
+        MainView view = mainView.get();
+        if (view != null) {
+            view.hideProgress();
+        }
     }
 }

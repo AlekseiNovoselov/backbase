@@ -116,15 +116,6 @@ public class BinarySearchRightMoreTest {
     }
 
     @Test
-    public void findLastCaseSensitiveFFF() {
-        ArrayList<String> array = createSimpleArray();
-        int size = array.size();
-        int actualValue = binarySearchRightMore.findIndex(array, 0, size - 1, "FfF", size);
-        int expectedValue = 9;
-        assertEquals(expectedValue, actualValue);
-    }
-
-    @Test
     public void findLastFFFF() {
         ArrayList<String> array = createSimpleArray();
         int size = array.size();

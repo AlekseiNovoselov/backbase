@@ -9,4 +9,8 @@ public interface MainView extends OnMapReadyCallback {
     void populate(Cities model);
 
     void showCityOnMap(City selectedCity);
+
+    void showProgress();
+
+    void hideProgress();
 }

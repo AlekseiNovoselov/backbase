@@ -7,6 +7,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewStub;
+import android.widget.ProgressBar;
 import android.widget.SearchView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -26,6 +27,8 @@ import com.lexaloris.backbase.mainlist.entities.Coordination;
 public class MainActivity extends AppCompatActivity implements MainView {
     private MainPresenter mainPresenter;
     private CitiesListAdapter mAdapter;
+    private ProgressBar progressBar;
+    private SearchView searchView;
     private GoogleMap map;
 
     @Override
@@ -40,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
             SupportMapFragment mapFragment = (SupportMapFragment) fragment;
             mapFragment.getMapAsync(this);
         }
-
+        progressBar = findViewById(R.id.progressBar);
         RecyclerView recyclerView = findViewById(R.id.my_recycler_view);
         recyclerView.setHasFixedSize(true);
 
@@ -66,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
         mAdapter = new CitiesListAdapter(listener);
         recyclerView.setAdapter(mAdapter);
 
-        SearchView searchView = findViewById(R.id.search_view);
+        searchView = findViewById(R.id.search_view);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -103,6 +106,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
     public void populate(Cities model) {
         mAdapter.update(model);
         mAdapter.notifyDataSetChanged();
+        searchView.setVisibility(android.view.View.VISIBLE);
     }
 
     @Override
@@ -126,6 +130,16 @@ public class MainActivity extends AppCompatActivity implements MainView {
         } else {
             MapActivity.show(this, lat, lon, cityName);
         }
+    }
+
+    @Override
+    public void showProgress() {
+        progressBar.setVisibility(android.view.View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgress() {
+        progressBar.setVisibility(android.view.View.GONE);
     }
 
     private void selectCityOnMap(double lat, double lan, String cityName) {

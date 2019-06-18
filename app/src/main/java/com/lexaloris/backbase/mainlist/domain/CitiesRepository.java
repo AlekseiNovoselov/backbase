@@ -13,6 +13,7 @@ import com.lexaloris.backbase.mainlist.entities.City;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.ref.WeakReference;
 import java.util.Collections;
 import java.util.Comparator;
 
@@ -20,26 +21,28 @@ public class CitiesRepository {
     private static final String TAG = MainPresenterImpl.class.getSimpleName();
     private static final String FILE_NAME = "cities.json";
 
-    private final Context context;
+    private final WeakReference<Context> context;
     private Gson gson = new Gson();
 
     public CitiesRepository(Context context) {
-        this.context = context;
+        this.context = new WeakReference<>(context);
     }
 
     public CitiesData loadCities() {
-        try {
-            AssetManager manager = context.getAssets();
-            InputStream file = manager.open(FILE_NAME);
-            byte[] formArray = new byte[file.available()];
-            file.read(formArray);
-            file.close();
-            Cities cities = parse(new String(formArray));
-            Comparator<City> comparator = createComparator();
-            Collections.sort(cities, comparator);
-            return new CitiesData(cities);
-        } catch (IOException ex) {
-            Log.e(TAG, ex.getLocalizedMessage(), ex);
+        if (context.get() != null) {
+            try {
+                AssetManager manager = context.get().getAssets();
+                InputStream file = manager.open(FILE_NAME);
+                byte[] formArray = new byte[file.available()];
+                file.read(formArray);
+                file.close();
+                Cities cities = parse(new String(formArray));
+                Comparator<City> comparator = createComparator();
+                Collections.sort(cities, comparator);
+                return new CitiesData(cities);
+            } catch (IOException ex) {
+                Log.e(TAG, ex.getLocalizedMessage(), ex);
+            }
         }
         return null;
     }
