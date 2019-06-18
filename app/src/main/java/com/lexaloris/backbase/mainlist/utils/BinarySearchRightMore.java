@@ -2,9 +2,9 @@ package com.lexaloris.backbase.mainlist.utils;
 
 import java.util.ArrayList;
 
-public class BinarySearchRightMore {
+class BinarySearchRightMore {
 
-    public int findIndex(ArrayList<String> array, int left, int right, String prefix, int size) {
+    int findIndex(ArrayList<String> array, int left, int right, String prefix, int size) {
         if (right >= left) {
             int mid = left + (right - left) / 2;
             boolean doesStringStartWithPrefix = doesStringStartWithPrefix(array.get(mid), prefix);
@@ -20,11 +20,11 @@ public class BinarySearchRightMore {
     }
 
     private boolean isStringMoreThanPrefix(String string, String prefix) {
-        boolean isStringMoreThanPrefix = prefix.toLowerCase().compareToIgnoreCase(string.toLowerCase()) < 0;
+        boolean isStringMoreThanPrefix = prefix.compareToIgnoreCase(string) < 0;
         return isStringMoreThanPrefix && !doesStringStartWithPrefix(string, prefix);
     }
 
     private boolean doesStringStartWithPrefix(String string, String prefix) {
-        return string.toLowerCase().startsWith(prefix.toLowerCase());
+        return string.startsWith(prefix);
     }
 }

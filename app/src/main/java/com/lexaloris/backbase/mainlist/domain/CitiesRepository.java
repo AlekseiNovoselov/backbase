@@ -54,16 +54,12 @@ public class CitiesRepository {
     }
 
     private Comparator<City> createComparator() {
-        return new Comparator<City>() {
-            @Override
-            public int compare(City firstCity, City secondCity) {
-                return firstCity.getName().compareToIgnoreCase(secondCity.getName());
+        return (firstCity, secondCity) -> {
+            int nameResult = firstCity.getName().compareToIgnoreCase(secondCity.getName());
+            if (nameResult != 0) {
+                return nameResult;
             }
-
-            @Override
-            public boolean equals(Object obj) {
-                return false;
-            }
+            return firstCity.getCountryName().compareToIgnoreCase(secondCity.getCountryName());
         };
     }
 }

@@ -14,7 +14,7 @@ public class CitiesData {
     private ArrayList<String> mapCitiesNames(Cities allCities) {
         ArrayList<String> citiesNames = new ArrayList<>();
         for (int i = 0; i < allCities.size(); i++) {
-            citiesNames.add(allCities.get(i).getName());
+            citiesNames.add(allCities.get(i).getName().toLowerCase());
         }
         return citiesNames;
     }
