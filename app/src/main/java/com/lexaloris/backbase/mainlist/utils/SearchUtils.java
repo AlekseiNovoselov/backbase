@@ -1,7 +1,7 @@
-package com.lexaloris.backbase;
+package com.lexaloris.backbase.mainlist.utils;
 
-import com.lexaloris.backbase.model.Cities;
-import com.lexaloris.backbase.model.CitiesData;
+import com.lexaloris.backbase.mainlist.entities.Cities;
+import com.lexaloris.backbase.mainlist.entities.CitiesData;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package com.lexaloris.backbase;
+package com.lexaloris.backbase.mainlist.presentation.view;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -8,9 +8,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.lexaloris.backbase.model.Cities;
-import com.lexaloris.backbase.model.City;
-import com.lexaloris.backbase.model.Coordination;
+import com.lexaloris.backbase.R;
+import com.lexaloris.backbase.mainlist.entities.Cities;
+import com.lexaloris.backbase.mainlist.entities.City;
+import com.lexaloris.backbase.mainlist.entities.Coordination;
 
 public class CitiesListAdapter extends RecyclerView.Adapter<CitiesListAdapter.CityCellViewHolder> {
     private final OnItemClickListener listener;
@@ -60,18 +61,8 @@ public class CitiesListAdapter extends RecyclerView.Adapter<CitiesListAdapter.Ci
             titleView.setText(title);
             subtitleView.setText(subtitle);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    listener.onItemClick(city);
-                }
-            });
-            aboutButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    listener.onButtonClick();
-                }
-            });
+            itemView.setOnClickListener(v -> listener.onItemClick(city));
+            aboutButton.setOnClickListener(v -> listener.onButtonClick());
         }
     }
 }

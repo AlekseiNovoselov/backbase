@@ -26,12 +26,7 @@ public class AboutPresenterImpl implements About.Presenter {
 
         aboutViewImpl.showProgress();
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                aboutModel.getAboutInfo();
-            }
-        }, 1000);
+        new Handler().postDelayed(aboutModel::getAboutInfo, 1000);
     }
 
     @Override

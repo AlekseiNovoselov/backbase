@@ -1,4 +1,4 @@
-package com.lexaloris.backbase;
+package com.lexaloris.backbase.mainlist.domain;
 
 import android.content.Context;
 import android.content.res.AssetManager;
@@ -6,9 +6,10 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
-import com.lexaloris.backbase.model.Cities;
-import com.lexaloris.backbase.model.CitiesData;
-import com.lexaloris.backbase.model.City;
+import com.lexaloris.backbase.mainlist.presentation.presenter.MainPresenterImpl;
+import com.lexaloris.backbase.mainlist.entities.Cities;
+import com.lexaloris.backbase.mainlist.entities.CitiesData;
+import com.lexaloris.backbase.mainlist.entities.City;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,7 +17,7 @@ import java.util.Collections;
 import java.util.Comparator;
 
 public class CitiesRepository {
-    private static final String TAG = PresenterImpl.class.getSimpleName();
+    private static final String TAG = MainPresenterImpl.class.getSimpleName();
     private static final String FILE_NAME = "cities.json";
 
     private final Context context;

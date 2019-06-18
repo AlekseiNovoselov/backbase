@@ -1,4 +1,4 @@
-package com.lexaloris.backbase;
+package com.lexaloris.backbase.mainlist.presentation.view;
 
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -14,18 +14,19 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.lexaloris.backbase.R;
 import com.lexaloris.backbase.about.AboutActivity;
+import com.lexaloris.backbase.mainlist.presentation.presenter.MainPresenter;
+import com.lexaloris.backbase.mainlist.presentation.presenter.MainPresenterImpl;
 import com.lexaloris.backbase.map.MapActivity;
-import com.lexaloris.backbase.model.Cities;
-import com.lexaloris.backbase.model.City;
-import com.lexaloris.backbase.model.Coordination;
+import com.lexaloris.backbase.mainlist.entities.Cities;
+import com.lexaloris.backbase.mainlist.entities.City;
+import com.lexaloris.backbase.mainlist.entities.Coordination;
 
 public class MainActivity extends AppCompatActivity implements MainView {
-
+    private MainPresenter mainPresenter;
     private CitiesListAdapter mAdapter;
-
     private GoogleMap map;
-    private Presenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
         OnItemClickListener listener = new OnItemClickListener() {
             @Override
             public void onItemClick(City city) {
-                presenter.onItemClick(city);
+                mainPresenter.onItemClick(city);
             }
 
             @Override
@@ -74,18 +75,18 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
             @Override
             public boolean onQueryTextChange(String inputtedText) {
-                presenter.onTextChanges(inputtedText);
+                mainPresenter.onTextChanges(inputtedText);
                 return true;
             }
         });
     }
 
     private void attachPresenter() {
-        presenter = (Presenter) getLastCustomNonConfigurationInstance();
-        if (presenter == null) {
-            presenter = new PresenterImpl(getApplicationContext());
+        mainPresenter = (MainPresenter) getLastCustomNonConfigurationInstance();
+        if (mainPresenter == null) {
+            mainPresenter = new MainPresenterImpl(getApplicationContext());
         }
-        presenter.attachView(this);
+        mainPresenter.attachView(this);
     }
 
     private void startAboutActivity() {
@@ -95,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
     @Override
     protected void onStart() {
         super.onStart();
-        presenter.onStart();
+        mainPresenter.onStart();
     }
 
     @Override
@@ -107,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
-        presenter.onMapReady();
+        mainPresenter.onMapReady();
     }
 
     @Override
@@ -137,11 +138,11 @@ public class MainActivity extends AppCompatActivity implements MainView {
     @Override
     public void onStop() {
         super.onStop();
-        presenter.onStop();
+        mainPresenter.onStop();
     }
 
     @Override
     public Object onRetainCustomNonConfigurationInstance() {
-        return presenter;
+        return mainPresenter;
     }
 }

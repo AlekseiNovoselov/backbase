@@ -1,15 +1,17 @@
-package com.lexaloris.backbase;
+package com.lexaloris.backbase.mainlist.presentation.presenter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.lexaloris.backbase.model.Cities;
-import com.lexaloris.backbase.model.CitiesData;
-import com.lexaloris.backbase.model.City;
+import com.lexaloris.backbase.mainlist.domain.CitiesRepository;
+import com.lexaloris.backbase.mainlist.presentation.view.MainView;
+import com.lexaloris.backbase.mainlist.utils.SearchUtils;
+import com.lexaloris.backbase.mainlist.entities.Cities;
+import com.lexaloris.backbase.mainlist.entities.CitiesData;
+import com.lexaloris.backbase.mainlist.entities.City;
 import java.lang.ref.WeakReference;
 
-public class PresenterImpl implements Presenter {
-
+public class MainPresenterImpl implements MainPresenter {
     private WeakReference<MainView> mainView;
     private CitiesRepository repository;
     private SearchUtils searchUtils = new SearchUtils();
@@ -17,7 +19,7 @@ public class PresenterImpl implements Presenter {
     private City selectedCity = null;
     private String searchText = "";
 
-    public PresenterImpl(@NonNull Context context) {
+    public MainPresenterImpl(@NonNull Context context) {
         repository = new CitiesRepository(context);
     }
 

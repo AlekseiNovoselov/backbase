@@ -1,4 +1,4 @@
-package com.lexaloris.backbase;
+package com.lexaloris.backbase.mainlist.utils;
 
 import java.util.ArrayList;
 

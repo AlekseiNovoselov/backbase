@@ -1,4 +1,4 @@
-package com.lexaloris.backbase.model;
+package com.lexaloris.backbase.mainlist.entities;
 
 import java.util.ArrayList;
 
