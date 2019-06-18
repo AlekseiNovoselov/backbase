@@ -7,6 +7,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewStub;
+import android.widget.SearchView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -63,6 +64,20 @@ public class MainActivity extends AppCompatActivity implements MainView {
         };
         mAdapter = new CitiesListAdapter(listener);
         recyclerView.setAdapter(mAdapter);
+
+        SearchView searchView = findViewById(R.id.search_view);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String inputtedText) {
+                presenter.onTextChanges(inputtedText);
+                return true;
+            }
+        });
     }
 
     private void attachPresenter() {

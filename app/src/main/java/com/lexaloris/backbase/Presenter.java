@@ -13,4 +13,6 @@ interface Presenter {
     void onItemClick(City city);
 
     void onMapReady();
+
+    void onTextChanges(String inputtedText);
 }
